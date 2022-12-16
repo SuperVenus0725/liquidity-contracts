@@ -1284,6 +1284,8 @@ fn withdraw_stake_from_a_club(
                 .add_message(send_bank)
                 .add_attribute("action", action)
                 .add_attribute("bonded", withdrawal_amount.clone().to_string())
+                .add_attribute("staker", staker)
+                .add_attribute("club_name", club_name)
                 .set_data(data_msg);
             return Ok(rsp);
         }
