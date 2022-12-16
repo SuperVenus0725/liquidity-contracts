@@ -1319,7 +1319,7 @@ fn withdraw_stake_from_a_club(
             .add_attribute("burnt", burn_amount.to_string());
     }
     let transfer_msg = Cw20ExecuteMsg::Transfer {
-        recipient: staker,
+        recipient: staker.clone(),
         amount: withdrawal_amount - burn_amount,
     };
     let exec = WasmMsg::Execute {
@@ -1341,7 +1341,9 @@ fn withdraw_stake_from_a_club(
         .add_message(send_wasm)
         .add_message(send_bank)
         .add_attribute("action", action)
-        .add_attribute("withdrawn", withdrawal_amount.clone().to_string())
+        .add_attribute("bonded", withdrawal_amount.clone().to_string())
+        .add_attribute("staker", staker)
+        .add_attribute("club_name", club_name)
         .set_data(data_msg);
     return Ok(rsp);
 }
